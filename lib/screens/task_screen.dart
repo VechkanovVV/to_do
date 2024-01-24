@@ -5,8 +5,13 @@ import 'package:flutter_task_app/widgets/task_list.dart';
 
 import '../modules/task.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
   TaskScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _TaskScreenState();
+}
+class _TaskScreenState extends State<TaskScreen>{
   TextEditingController titleController = TextEditingController();
 
   void _addTask(BuildContext context) {
@@ -97,24 +102,30 @@ class AddTaskScreen extends StatelessWidget {
             ),
             controller: titleController,
           ),
-          TextButton(
-            onPressed: () {
-              var task = Task(title: titleController.text,);
-              context.read<TaskBloc>().add(AddTask(task: task));
-              Navigator.pop(context);
-
-            },
-            child: Text(
-              'Cancle',
-            ),
-          ),
-          ElevatedButton(
+          Row(children: [
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text(
+                'Cancle',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                var task = Task(
+                  title: titleController.text,
+                );
+                titleController.text ="";
+                context.read<TaskBloc>().add(AddTask(task: task));
+                Navigator.pop(context);
+              },
+              child: Text(
                 'Add',
-              )),
+              ),
+            ),
+          ]),
         ],
       ),
     );
   }
+
 }
