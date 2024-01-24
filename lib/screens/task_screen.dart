@@ -1,61 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_task_app/blocs/bloc/task_bloc.dart';
+import 'package:flutter_task_app/widgets/task_list.dart';
+
 import '../modules/task.dart';
 
 class TaskScreen extends StatelessWidget {
   TaskScreen({Key? key}) : super(key: key);
+  TextEditingController titleController = TextEditingController();
 
-  List<Task> taskList = [
-    Task(title: 'task1'),
-    Task(title: 'task2'),
-    Task(title: 'task3'),
-  ];
+  void _addTask(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(controller: titleController,),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ToDo'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.add,
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: Chip(
-              label: Text(
-                'Tasks:',
+    return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
+      List<Task> taskList = state.tasks;
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('ToDo'),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.add,
               ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: taskList.length,
-              itemBuilder: (context, index) {
-                var currentTask = taskList[index];
-                return ListTile(
-                  title: Text(currentTask.title), // Исправлено: title должен быть виджетом Text
-                  trailing: Checkbox(
-                    value: currentTask.isDone,
-                    onChanged: (value) {},
-                  ),
-                );
-              },
+          ],
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Chip(
+                label: Text(
+                  'Tasks:',
+                ),
+              ),
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Add Task',
-        child: const Icon(Icons.add),
-      ),
-    );
+            TaskList(tasks: taskList)
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _addTask(context),
+          tooltip: 'Add Task',
+          child: const Icon(Icons.add),
+        ),
+      );
+    });
   }
 }
