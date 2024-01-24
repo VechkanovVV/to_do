@@ -17,30 +17,7 @@ class TaskScreen extends StatelessWidget {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Text(
-                  'add task',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    label: Text('Title'),
-                    border: OutlineInputBorder(),
-                  ),
-                  controller: titleController,
-                ),
-              ],
-            ),
-          ),
+          child: AddTaskScreen(titleController: titleController),
         ),
       ),
     );
@@ -82,5 +59,43 @@ class TaskScreen extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class AddTaskScreen extends StatelessWidget {
+  const AddTaskScreen({
+    Key? key,
+    required this.titleController,
+  }) : super(key: key);
+
+  final TextEditingController titleController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Text(
+            'add task',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextField(
+            autofocus: true,
+            decoration: InputDecoration(
+              label: Text('Title', style: TextStyle(fontSize: 18.5),),
+              border: OutlineInputBorder(),
+            ),
+            controller: titleController,
+          ),
+        ],
+      ),
+    );
   }
 }
