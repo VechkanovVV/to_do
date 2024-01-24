@@ -89,11 +89,30 @@ class AddTaskScreen extends StatelessWidget {
           TextField(
             autofocus: true,
             decoration: InputDecoration(
-              label: Text('Title', style: TextStyle(fontSize: 18.5),),
+              label: Text(
+                'Title',
+                style: TextStyle(fontSize: 18.5),
+              ),
               border: OutlineInputBorder(),
             ),
             controller: titleController,
           ),
+          TextButton(
+            onPressed: () {
+              var task = Task(title: titleController.text,);
+              context.read<TaskBloc>().add(AddTask(task: task));
+              Navigator.pop(context);
+
+            },
+            child: Text(
+              'Cancle',
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Add',
+              )),
         ],
       ),
     );
