@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_task_app/blocs/bloc_exports.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
 
 import '../modules/task.dart';
 

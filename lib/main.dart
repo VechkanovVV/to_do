@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_task_app/blocs/bloc/task_bloc.dart';
-import 'package:flutter_task_app/modules/task.dart';
-import 'package:flutter_task_app/screens/task_screen.dart';
+import 'package:to_do/blocs/bloc/task_bloc.dart';
+import 'package:to_do/screens/task_screen.dart';
 
 void main() {
   BlocOverrides.runZoned(() => runApp(const MyApp()));
