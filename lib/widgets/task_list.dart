@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_task_app/blocs/bloc_exports.dart';
 
 import '../modules/task.dart';
 
@@ -19,7 +20,9 @@ class TaskList extends StatelessWidget{
            title: Text(currentTask.title),
            trailing: Checkbox(
              value: currentTask.isDone,
-             onChanged: (value) {},
+             onChanged: (value) {
+               context.read<TaskBloc>().add(UpdateTask(task: tasks[index]));
+             },
            ),
          );
        },
