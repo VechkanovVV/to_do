@@ -17,10 +17,29 @@ class TaskScreen extends StatelessWidget {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: Column(
-            children: [
-              TextField(controller: titleController,),
-            ],
+          child: Container(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Text(
+                  'add task',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    label: Text('Title'),
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: titleController,
+                ),
+              ],
+            ),
           ),
         ),
       ),
