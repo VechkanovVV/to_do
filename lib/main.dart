@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'ToDo',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: TaskScreen(),
+        home: const TaskScreen(),
       ),
     );
   }

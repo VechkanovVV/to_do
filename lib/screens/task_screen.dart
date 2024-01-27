@@ -6,7 +6,7 @@ import 'package:to_do/widgets/task_list.dart';
 import '../modules/task.dart';
 
 class TaskScreen extends StatefulWidget {
-  TaskScreen({Key? key}) : super(key: key);
+  const TaskScreen({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TaskScreenState();
@@ -38,7 +38,7 @@ class _TaskScreenState extends State<TaskScreen>{
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
               ),
             ),
@@ -47,7 +47,7 @@ class _TaskScreenState extends State<TaskScreen>{
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
+            const Center(
               child: Chip(
                 label: Text(
                   'Tasks:',
@@ -78,22 +78,22 @@ class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
+          const Text(
             'add task',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextField(
             autofocus: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text(
                 'Title',
                 style: TextStyle(fontSize: 18.5),
@@ -102,10 +102,12 @@ class AddTaskScreen extends StatelessWidget {
             ),
             controller: titleController,
           ),
-          Row(children: [
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(
+              child: const Text(
                 'Cancle',
               ),
             ),
@@ -118,7 +120,7 @@ class AddTaskScreen extends StatelessWidget {
                 context.read<TaskBloc>().add(AddTask(task: task));
                 Navigator.pop(context);
               },
-              child: Text(
+              child: const Text(
                 'Add',
               ),
             ),
