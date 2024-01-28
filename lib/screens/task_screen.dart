@@ -34,7 +34,7 @@ class _TaskScreenState extends State<TaskScreen>{
       List<Task> taskList = state.tasks;
       return Scaffold(
         appBar: AppBar(
-          title: Text('ToDo'),
+          title: const Text('ToDo'),
           actions: [
             IconButton(
               onPressed: () {},
