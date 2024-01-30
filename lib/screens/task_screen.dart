@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/blocs/bloc/task_bloc.dart';
+import 'package:to_do/widgets/priority_widget.dart';
 import 'package:to_do/widgets/task_list.dart';
 
 import '../modules/task.dart';
@@ -40,6 +41,7 @@ class _TaskScreenState extends State<TaskScreen> {
 
       return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.purple,
           title: const Text(
             'ToDo',
             style: TextStyle(
@@ -59,6 +61,9 @@ class _TaskScreenState extends State<TaskScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 8,
+            ),
             Center(
               child: Chip(
                 label: Text(
@@ -69,7 +74,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             TaskList(tasks: taskList)
@@ -106,6 +111,10 @@ class AddTaskScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          PriorityWidget(),
           const SizedBox(
             height: 10,
           ),
