@@ -10,13 +10,18 @@ Future<void> main() async {
   final storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
   HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+    () => runApp(MyApp()),
     storage: storage,
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  final lightColorScheme = ColorScheme.fromSeed(
+    seedColor: Colors.blue,
+    brightness: Brightness.light,
+  );
+
 
   // This widget is the root of your application.
   @override
@@ -25,7 +30,8 @@ class MyApp extends StatelessWidget {
       create: (context) => TaskBloc(),
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.deepOrangeAccent,
+          colorScheme: lightColorScheme,
+          useMaterial3: true,
         ),
         home:  TaskScreen(),
       ),

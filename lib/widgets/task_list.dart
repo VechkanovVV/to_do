@@ -28,9 +28,31 @@ class TaskList extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(currentTask.title),
+                    Row(
+                      children: [
+                        SizedBox(width: 3,),
+                        GestureDetector(
+                          child: Icon(Icons.close),
+                          onTap: () {
+                            context
+                                .read<TaskBloc>()
+                                .add(DeleteTask(task: tasks[index]));
+                          },
+                        ),
+                        SizedBox(width: 8,),
+                        Container(
+                          width: 100,
+                          child: Text(
+                            currentTask.title,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                     Row(children: [
-                      StarCheckBox(task: tasks[index], ),
+                      StarCheckBox(
+                        task: tasks[index],
+                      ),
                       Checkbox(
                         value: currentTask.isDone,
                         onChanged: (value) {

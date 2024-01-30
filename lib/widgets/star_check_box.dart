@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../blocs/bloc/task_bloc.dart';
 
 
 class StarCheckBox extends StatefulWidget {
@@ -17,7 +20,9 @@ class _StarCheckBoxState extends State<StarCheckBox> {
     return GestureDetector(
       onTap: (){
         setState(() {
-          widget.task.isFavourite =  !widget.task.isFavourite;
+          context
+              .read<TaskBloc>()
+              .add(TopTask(task: widget.task));
         });
       },
       child: Stack(

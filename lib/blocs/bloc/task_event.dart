@@ -35,3 +35,13 @@ class DeleteTask extends TaskEvent {
   @override
   List<Object> get props => [task];
 }
+
+class TopTask extends TaskEvent {
+  final Task task;
+
+  const TopTask({
+    required this.task,
+  });
+  @override
+  List<Object> get props => [task];
+}
