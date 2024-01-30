@@ -11,8 +11,12 @@ class TaskScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _TaskScreenState();
 }
-class _TaskScreenState extends State<TaskScreen>{
+
+class _TaskScreenState extends State<TaskScreen> {
   TextEditingController titleController = TextEditingController();
+
+  // Определите переменную для хранения количества задач
+  late int number;
 
   void _addTask(BuildContext context) {
     showModalBottomSheet(
@@ -32,6 +36,10 @@ class _TaskScreenState extends State<TaskScreen>{
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
       List<Task> taskList = state.tasks;
+
+      // Обновите переменную number при изменении списка задач
+      number = taskList.length;
+
       return Scaffold(
         appBar: AppBar(
           title: const Text('ToDo'),
@@ -47,10 +55,10 @@ class _TaskScreenState extends State<TaskScreen>{
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
+            Center(
               child: Chip(
                 label: Text(
-                  'Tasks:',
+                  'Tasks: $number',
                 ),
               ),
             ),
@@ -102,9 +110,7 @@ class AddTaskScreen extends StatelessWidget {
             ),
             controller: titleController,
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text(
@@ -116,7 +122,7 @@ class AddTaskScreen extends StatelessWidget {
                 var task = Task(
                   title: titleController.text,
                 );
-                titleController.text ="";
+                titleController.text = "";
                 context.read<TaskBloc>().add(AddTask(task: task));
                 Navigator.pop(context);
               },
@@ -129,5 +135,4 @@ class AddTaskScreen extends StatelessWidget {
       ),
     );
   }
-
 }

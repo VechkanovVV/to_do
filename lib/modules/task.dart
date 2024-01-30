@@ -4,11 +4,15 @@ class Task extends Equatable {
   final String title;
   bool? isDone;
   bool? isDeleted;
+  bool isFavourite;
 
-  Task({required this.title, this.isDone, this.isDeleted}) {
-    isDone = isDone ?? false;
-    isDeleted = isDeleted ?? false;
-  }
+
+  Task({
+    required this.title,
+    this.isDone = false,
+    this.isDeleted = false,
+    this.isFavourite = false,
+  });
 
   Task copyWith({String? title, bool? isDone, bool? isDeleted}) {
     return Task(

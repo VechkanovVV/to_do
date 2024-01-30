@@ -24,11 +24,10 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => TaskBloc(),
       child: MaterialApp(
-        title: 'ToDo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.deepOrangeAccent,
         ),
-        home: const TaskScreen(),
+        home:  TaskScreen(),
       ),
     );
   }
