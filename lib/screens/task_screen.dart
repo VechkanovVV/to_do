@@ -15,7 +15,6 @@ class TaskScreen extends StatefulWidget {
 class _TaskScreenState extends State<TaskScreen> {
   TextEditingController titleController = TextEditingController();
 
-  // Определите переменную для хранения количества задач
   late int number;
 
   void _addTask(BuildContext context) {
@@ -37,17 +36,22 @@ class _TaskScreenState extends State<TaskScreen> {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
       List<Task> taskList = state.tasks;
 
-      // Обновите переменную number при изменении списка задач
       number = taskList.length;
 
       return Scaffold(
         appBar: AppBar(
-          title: const Text('ToDo'),
+          title: const Text(
+            'ToDo',
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
           actions: [
             IconButton(
               onPressed: () {},
               icon: const Icon(
                 Icons.add,
+                size: 35,
               ),
             ),
           ],
@@ -59,8 +63,14 @@ class _TaskScreenState extends State<TaskScreen> {
               child: Chip(
                 label: Text(
                   'Tasks: $number',
+                  style: const TextStyle(
+                    fontSize: 25,
+                  ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 8,
             ),
             TaskList(tasks: taskList)
           ],

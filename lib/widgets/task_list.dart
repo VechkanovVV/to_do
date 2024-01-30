@@ -18,56 +18,65 @@ class TaskList extends StatelessWidget {
           var currentTask = tasks[index];
           return Column(children: [
             Container(
+              height: 65,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   width: 1.5,
                 ),
               ),
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(width: 3,),
-                        GestureDetector(
-                          child: Icon(Icons.close),
-                          onTap: () {
-                            context
-                                .read<TaskBloc>()
-                                .add(DeleteTask(task: tasks[index]));
-                          },
-                        ),
-                        SizedBox(width: 8,),
-                        Container(
-                          width: 100,
-                          child: Text(
-                            currentTask.title,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(children: [
-                      StarCheckBox(
-                        task: tasks[index],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 3,
                       ),
-                      Checkbox(
-                        value: currentTask.isDone,
-                        onChanged: (value) {
+                      GestureDetector(
+                        child: const Icon(
+                          Icons.close,
+                          size: 30,
+                        ),
+                        onTap: () {
                           context
                               .read<TaskBloc>()
-                              .add(UpdateTask(task: tasks[index]));
+                              .add(DeleteTask(task: tasks[index]));
                         },
                       ),
-                    ]),
-                  ],
-                ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      SizedBox(
+                        width: 150,
+                        child: Text(
+                          currentTask.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 27,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(children: [
+                    StarCheckBox(
+                      task: tasks[index],
+                    ),
+                    Checkbox(
+                      value: currentTask.isDone,
+                      onChanged: (value) {
+                        context
+                            .read<TaskBloc>()
+                            .add(UpdateTask(task: tasks[index]));
+                      },
+                    ),
+                  ]),
+                ],
               ),
             ),
-            SizedBox(
-              height: 3,
+            const SizedBox(
+              height: 5,
             ),
           ]);
         },
