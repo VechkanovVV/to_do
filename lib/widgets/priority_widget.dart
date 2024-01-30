@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PriorityWidget extends StatefulWidget {
-  const PriorityWidget({super.key});
-
+  PriorityWidget({super.key});
+  bool? isRed;
+  bool? isYellow;
+  bool? isGreen;
   @override
   State<StatefulWidget> createState() => _PriorityWidgetState();
 }
@@ -20,6 +22,7 @@ class _PriorityWidgetState extends State<PriorityWidget> {
           onTap: () {
             setState(() {
               redIsPressed = !redIsPressed;
+              widget.isRed = redIsPressed;
               if (greenIsPressed) greenIsPressed = false;
               if (yellowIsPressed) yellowIsPressed = false;
             });
@@ -76,6 +79,7 @@ class _PriorityWidgetState extends State<PriorityWidget> {
               greenIsPressed = !greenIsPressed;
               if (redIsPressed) redIsPressed = false;
               if (yellowIsPressed) yellowIsPressed = false;
+           ;
             });
           },
           child: Container(

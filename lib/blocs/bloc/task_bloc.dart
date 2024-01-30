@@ -11,9 +11,19 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<AddTask>(_onAddTask);
     on<DeleteTask>(_onDeleteTask);
     on<UpdateTask>(_onUpdateTask);
-    on<TopTask>(_onTopTask); // Исправлено: использовать TopTask вместо UpdateTask
+    on<TopTask>(_onTopTask);
+    on<RedTask>(_onRedTask);
+
   }
 
+  void _onRedTask(RedTask event, Emitter<TaskState> emit){
+    final state = this.state;
+    final task = event.task;
+    final int index = state.tasks.indexOf(task);
+    List<Task> tasks = List.from(state.tasks)..remove(task);
+    tasks.insert(index, task.copyWith(isRed: true, isGreen: false, isYellow: false));
+    emit(TaskState(tasks: tasks));
+  }
   void _onAddTask(AddTask event, Emitter<TaskState> emit) {
     final state = this.state;
     emit(TaskState(tasks: List.from(state.tasks)..add(event.task)));

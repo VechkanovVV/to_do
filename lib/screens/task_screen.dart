@@ -91,12 +91,13 @@ class _TaskScreenState extends State<TaskScreen> {
 }
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({
+   AddTaskScreen({
     Key? key,
     required this.titleController,
   }) : super(key: key);
 
   final TextEditingController titleController;
+  final pw =  PriorityWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class AddTaskScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          PriorityWidget(),
+         pw,
           const SizedBox(
             height: 10,
           ),
@@ -140,6 +141,7 @@ class AddTaskScreen extends StatelessWidget {
               onPressed: () {
                 var task = Task(
                   title: titleController.text,
+                  isRed: pw.isRed,
                 );
                 titleController.text = "";
                 context.read<TaskBloc>().add(AddTask(task: task));

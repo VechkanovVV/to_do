@@ -21,7 +21,7 @@ class TaskList extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  width: 1.5,
+                  width: 2,
                 ),
               ),
               child: Row(
@@ -69,6 +69,14 @@ class TaskList extends StatelessWidget {
                             .read<TaskBloc>()
                             .add(UpdateTask(task: tasks[index]));
                       },
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        width: 6,
+                        color: (tasks[index].isRed ?? false) ? Colors.red : Colors.white,
+                      ),
                     ),
                   ]),
                 ],
