@@ -1,29 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/bloc/task_bloc.dart';
+import '../modules/task.dart';
 
+class StarCheckBox extends StatelessWidget {
+  final Task task;
 
-class StarCheckBox extends StatefulWidget {
-  final task;
+  const StarCheckBox({super.key, required this.task});
 
-  StarCheckBox({super.key, required this.task});
-
-  @override
-  State<StatefulWidget> createState() => _StarCheckBoxState();
-}
-
-class _StarCheckBoxState extends State<StarCheckBox> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        setState(() {
-          context
-              .read<TaskBloc>()
-              .add(TopTask(task: widget.task));
-        });
+      onTap: () {
+        context.read<TaskBloc>().add(TopTask(task: task));
       },
       child: Stack(
         alignment: Alignment.center,
@@ -35,7 +25,7 @@ class _StarCheckBoxState extends State<StarCheckBox> {
           ),
           Icon(
             Icons.star,
-            color: widget.task.isFavourite ? Colors.yellow : Colors.transparent,
+            color: (task.isFavourite ?? false) ? Colors.yellow : Colors.transparent,
             size: 32.0,
           ),
         ],
