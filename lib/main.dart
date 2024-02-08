@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           colorScheme: lightColorScheme,
           useMaterial3: true,
         ),
-        home:  TaskScreen(),
+        home:  const TaskScreen(),
       ),
     );
   }

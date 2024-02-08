@@ -28,7 +28,7 @@ class _TaskScreenState extends State<TaskScreen> {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: AddTaskScreen(titleController: titleController),
+          child: const AddTaskScreen(),
         ),
       ),
     );

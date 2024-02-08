@@ -9,10 +9,8 @@ import '../widgets/priority_widget.dart';
 class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({
     Key? key,
-    required this.titleController,
   }) : super(key: key);
 
-  final TextEditingController titleController;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,9 @@ class AddTaskScreen extends StatelessWidget {
               ),
               TextField(
                 autofocus: true,
-                onChanged: (text) {},
+                onChanged: (text) {
+                    context.read<EditingTaskBloc>().add(SetTitleEvent(text));
+                },
                 decoration: const InputDecoration(
                   label: Text(
                     'Title',
@@ -48,7 +48,6 @@ class AddTaskScreen extends StatelessWidget {
                   ),
                   border: OutlineInputBorder(),
                 ),
-                controller: titleController,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 TextButton(
@@ -60,12 +59,11 @@ class AddTaskScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     var task = Task(
-                      title: titleController.text,
+                      title: state.title,
                       isRed: state.isRed,
                       isGreen: state.isGreen,
                       isYellow: state.isYellow,
                     );
-                    titleController.text = "";
                     context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
                   },
