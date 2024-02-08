@@ -10,7 +10,7 @@ part 'editing_task_event.dart';
 part 'editing_task_state.dart';
 
 class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
-  EditingTaskBloc() : super(EditingTaskState()) {
+  EditingTaskBloc() : super(const EditingTaskState()) {
     on<EditingTaskEvent>((event, emit) {
       on<SetHighPriorityEvent>(_onHighPriority);
       on<SetMediumPriorityEvent>(_onMediumPriority);

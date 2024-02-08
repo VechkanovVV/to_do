@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/editing_task/editing_task_bloc.dart';
 
 class PriorityWidget extends StatelessWidget {
+  const PriorityWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
