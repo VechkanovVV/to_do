@@ -19,32 +19,34 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
     });
   }
 
-  void _onTitleEvent(SetTitleEvent event, Emitter<EditingTaskState> emit){
+  void _onTitleEvent(SetTitleEvent event, Emitter<EditingTaskState> emit) {
     final newString = event.text;
     final newState = state.copyWith(title: newString);
     emit(newState);
   }
-  void _onLowPriority(SetLowPriorityEvent event, Emitter<EditingTaskState> emit){
+
+  void _onLowPriority(
+      SetLowPriorityEvent event, Emitter<EditingTaskState> emit) {
     final newState;
-    if (!state.isGreen){
-      newState = state.copyWith(isGreen:true, isRed: false, isYellow: false);
-    }
-    else{
+    if (!state.isGreen) {
+      newState = state.copyWith(isGreen: true, isRed: false, isYellow: false);
+    } else {
       newState = state.copyWith(isGreen: false, isRed: false, isYellow: false);
     }
     emit(state);
   }
 
-  void _onMediumPriority(SetMediumPriorityEvent event, Emitter<EditingTaskState> emit){
+  void _onMediumPriority(
+      SetMediumPriorityEvent event, Emitter<EditingTaskState> emit) {
     final newState;
-    if (!state.isYellow){
-      newState = state.copyWith(isRed: false, isYellow: true, isGreen:false);
-    }
-    else{
+    if (!state.isYellow) {
+      newState = state.copyWith(isRed: false, isYellow: true, isGreen: false);
+    } else {
       newState = state.copyWith(isRed: false, isGreen: false, isYellow: false);
     }
     emit(newState);
   }
+
   void _onHighPriority(
     SetHighPriorityEvent event,
     Emitter<EditingTaskState> emit,
