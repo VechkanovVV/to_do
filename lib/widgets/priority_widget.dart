@@ -1,104 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PriorityWidget extends StatefulWidget {
-  PriorityWidget({super.key});
-  bool? isRed;
-  bool? isYellow;
-  bool? isGreen;
-  @override
-  State<StatefulWidget> createState() => _PriorityWidgetState();
-}
+import '../blocs/editing_task/editing_task_bloc.dart';
 
-class _PriorityWidgetState extends State<PriorityWidget> {
-  var redIsPressed = false;
-  var yellowIsPressed = false;
-  var greenIsPressed = false;
-
+class PriorityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              redIsPressed = !redIsPressed;
-              widget.isRed = redIsPressed;
-              if (greenIsPressed) greenIsPressed = false;
-              if (yellowIsPressed) yellowIsPressed = false;
-            });
-          },
-          child: Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(60),
-              color: Colors.red,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.done,
-                size: redIsPressed ? 17 : 0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              yellowIsPressed = !yellowIsPressed;
-              if (greenIsPressed) greenIsPressed = false;
-              if (redIsPressed) redIsPressed = false;
-            });
-          },
-          child: Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(60),
-              color: Colors.yellow,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.done,
-                size: yellowIsPressed ? 17 : 0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              greenIsPressed = !greenIsPressed;
-              if (redIsPressed) redIsPressed = false;
-              if (yellowIsPressed) yellowIsPressed = false;
-           ;
-            });
-          },
-          child: Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(60),
-              color: Colors.green,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.done,
-                size: greenIsPressed ? 17 : 0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => EditingTaskBloc(),
+      child: _PriorityWidget(),
     );
+  }
+}
+
+class _PriorityWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<EditingTaskBloc, EditingTaskState>(
+        builder: (context, state) {
+      return Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              context.read<EditingTaskBloc>().add(SetHighPriorityEvent());
+            },
+            child: Container(
+              height: 30,
+              width: 30,
+              child: Center(
+                child: Icon(
+                  Icons.done,
+                  size: state.isRed ? 17 : 0,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60),
+                color: Colors.red,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          GestureDetector(
+            onTap: () {
+              context.read<EditingTaskBloc>().add(SetMediumPriorityEvent());
+            },
+            child: Container(
+              height: 30,
+              width: 30,
+              child: Center(
+                child: Icon(
+                  Icons.done,
+                  size: state.isYellow ? 17 : 0,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60),
+                color: Colors.yellow,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          GestureDetector(
+            onTap: () {
+              context.read<EditingTaskBloc>().add(SetLowPriorityEvent());
+            },
+            child: Container(
+              height: 30,
+              width: 30,
+              child: Center(
+                child: Icon(
+                  Icons.done,
+                  size: state.isGreen ? 17 : 0,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60),
+                color: Colors.green,
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

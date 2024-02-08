@@ -33,7 +33,7 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
     } else {
       newState = state.copyWith(isGreen: false, isRed: false, isYellow: false);
     }
-    emit(state);
+    emit(newState);
   }
 
   void _onMediumPriority(
