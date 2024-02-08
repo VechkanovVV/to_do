@@ -51,13 +51,3 @@ class TopTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
-class RedTask extends TaskEvent {
-  final Task task;
-
-  const RedTask({
-    required this.task,
-  });
-
-  @override
-  List<Object> get props => [task];
-}

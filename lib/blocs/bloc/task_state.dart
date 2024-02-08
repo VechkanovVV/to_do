@@ -2,9 +2,11 @@ part of 'task_bloc.dart';
 
 class TaskState extends Equatable {
   final List<Task> tasks;
+  final Set<String> titles;
 
   const TaskState({
     this.tasks = const <Task>[],
+    this.titles = const {},
   });
 
   Map<String, dynamic> toMap() {

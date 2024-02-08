@@ -5,8 +5,10 @@ import 'package:to_do/widgets/star_check_box.dart';
 import '../modules/task.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({Key? key, required this.tasks}) : super(key: key);
+  const TaskList({Key? key, required this.tasks, required this.titles})
+      : super(key: key);
   final List<Task> tasks;
+  final Set<String> titles;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +77,18 @@ class TaskList extends StatelessWidget {
                       width: 4,
                     ),
                     Container(
-                      width: (tasks[index].isRed ?? false) ? 6 : 0,
+                      width: ((tasks[index].isRed ?? false) ||
+                              (tasks[index].isGreen ?? false) ||
+                              (tasks[index].isYellow ?? false))
+                          ? 6
+                          : 0,
                       color: (tasks[index].isRed ?? false)
                           ? Colors.red
-                          : Colors.white,
+                          : (tasks[index].isGreen ?? false)
+                              ? Colors.green
+                              : (tasks[index].isYellow ?? false)
+                                  ? Colors.yellow
+                                  : Colors.white,
                     ),
                   ]),
                 ],

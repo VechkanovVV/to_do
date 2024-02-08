@@ -8,10 +8,7 @@ class PriorityWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => EditingTaskBloc(),
-      child: _PriorityWidget(),
-    );
+      return _PriorityWidget();
   }
 }
 

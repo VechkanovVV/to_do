@@ -27,7 +27,7 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
 
   void _onLowPriority(
       SetLowPriorityEvent event, Emitter<EditingTaskState> emit) {
-    final newState;
+    final EditingTaskState newState;
     if (!state.isGreen) {
       newState = state.copyWith(isGreen: true, isRed: false, isYellow: false);
     } else {
@@ -38,7 +38,7 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
 
   void _onMediumPriority(
       SetMediumPriorityEvent event, Emitter<EditingTaskState> emit) {
-    final newState;
+    final EditingTaskState newState;
     if (!state.isYellow) {
       newState = state.copyWith(isRed: false, isYellow: true, isGreen: false);
     } else {
@@ -51,7 +51,7 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
     SetHighPriorityEvent event,
     Emitter<EditingTaskState> emit,
   ) {
-    final newState;
+    final EditingTaskState newState;
     if (!state.isRed) {
       newState = state.copyWith(isRed: true, isGreen: false, isYellow: false);
     } else {
