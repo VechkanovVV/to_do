@@ -35,7 +35,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isFavourite ?? false)) e.isVisible = false;
+      if (!(e.isFavourite ?? false)) {
+        e.isVisible = false;
+      } else {
+        e.isVisible = true;
+      }
       return e;
     }).toList()));
   }
@@ -44,7 +48,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isGreen ?? false)) e.isVisible = false;
+      if (!(e.isGreen ?? false)) {
+        e.isVisible = false;
+      } else {
+        e.isVisible = true;
+      }
       return e;
     }).toList()));
   }
@@ -53,7 +61,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isYellow ?? false)) e.isVisible = false;
+      if (!(e.isYellow ?? false)) {
+        e.isVisible = false;
+      } else {
+        e.isVisible = true;
+      }
       return e;
     }).toList()));
   }
@@ -71,7 +83,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isRed ?? false)) e.isVisible = false;
+      if (!(e.isRed ?? false)) {
+        e.isVisible = false;
+      } else {
+        e.isVisible = true;
+      }
       return e;
     }).toList()));
   }

@@ -14,7 +14,7 @@ part 'drop_down_event.dart';
 part 'drop_down_state.dart';
 
 class DropDownBloc extends Bloc<DropDownEvent, DropDownState> {
-  DropDownBloc() : super(DropDownState()) {
+  DropDownBloc() : super(const DropDownState()) {
     on<DropDownEvent>((event, emit) {
       on<High> (_onHigh);
       on<Medium>(_onMedium);
