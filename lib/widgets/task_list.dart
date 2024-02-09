@@ -77,11 +77,7 @@ class TaskList extends StatelessWidget {
                       width: 4,
                     ),
                     Container(
-                      width: ((tasks[index].isRed ?? false) ||
-                              (tasks[index].isGreen ?? false) ||
-                              (tasks[index].isYellow ?? false))
-                          ? 8
-                          : 0,
+                      width: 8,
                       color: (tasks[index].isRed ?? false)
                           ? Colors.red
                           : (tasks[index].isGreen ?? false)

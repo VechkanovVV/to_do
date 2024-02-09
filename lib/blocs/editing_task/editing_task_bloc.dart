@@ -47,10 +47,7 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
     emit(newState);
   }
 
-  void _onHighPriority(
-    SetHighPriorityEvent event,
-    Emitter<EditingTaskState> emit,
-  ) {
+  void _onHighPriority(SetHighPriorityEvent event, Emitter<EditingTaskState> emit) {
     final EditingTaskState newState;
     if (!state.isRed) {
       newState = state.copyWith(isRed: true, isGreen: false, isYellow: false);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/blocs/bloc/task_bloc.dart';
-import 'package:to_do/widgets/priority_widget.dart';
+
 import 'package:to_do/widgets/task_list.dart';
 
-import '../blocs/editing_task/editing_task_bloc.dart';
 import '../modules/task.dart';
+import '../widgets/show_only_tasks.dart';
 import 'add_screen.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -16,8 +16,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  TextEditingController titleController = TextEditingController();
-
   late int number;
 
   void _addTask(BuildContext context) {
@@ -37,7 +35,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
-      List<Task> taskList = state.tasks;
+      List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
       Set<String> titles = state.titles;
 
       number = taskList.length;
@@ -51,15 +49,7 @@ class _TaskScreenState extends State<TaskScreen> {
               fontSize: 30,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.add,
-                size: 35,
-              ),
-            ),
-          ],
+          actions: [ShowOnlyTask()],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,7 +70,10 @@ class _TaskScreenState extends State<TaskScreen> {
             const SizedBox(
               height: 8,
             ),
-            TaskList(tasks: taskList, titles: titles,)
+            TaskList(
+              tasks: taskList,
+              titles: titles,
+            )
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -92,5 +85,3 @@ class _TaskScreenState extends State<TaskScreen> {
     });
   }
 }
-
-

@@ -8,6 +8,7 @@ class Task extends Equatable {
   bool? isRed;
   bool? isGreen;
   bool? isYellow;
+  bool isVisible = true;
 
   Task(
       {required this.title,
