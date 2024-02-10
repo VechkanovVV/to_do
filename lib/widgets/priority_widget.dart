@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do/enums/priority_state.dart';
 
 import '../blocs/editing_task/editing_task_bloc.dart';
 
@@ -8,10 +9,7 @@ class PriorityWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => EditingTaskBloc(),
-      child: _PriorityWidget(),
-    );
+    return _PriorityWidget();
   }
 }
 
@@ -32,7 +30,7 @@ class _PriorityWidget extends StatelessWidget {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  size: state.isRed ? 17 : 0,
+                  size: (state.priority == PriorityState.high) ? 17 : 0,
                   color: Colors.white,
                 ),
               ),
@@ -55,7 +53,7 @@ class _PriorityWidget extends StatelessWidget {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  size: state.isYellow ? 17 : 0,
+                  size: (state.priority == PriorityState.medium) ? 17 : 0,
                   color: Colors.white,
                 ),
               ),
@@ -78,7 +76,7 @@ class _PriorityWidget extends StatelessWidget {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  size: state.isGreen ? 17 : 0,
+                  size: (state.priority == PriorityState.low) ? 17 : 0,
                   color: Colors.white,
                 ),
               ),

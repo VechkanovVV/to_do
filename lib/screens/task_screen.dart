@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/blocs/bloc/task_bloc.dart';
-import 'package:to_do/widgets/priority_widget.dart';
+
 import 'package:to_do/widgets/task_list.dart';
 
 import '../modules/task.dart';
+import '../widgets/show_only_tasks.dart';
+import 'add_screen.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -14,8 +16,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  TextEditingController titleController = TextEditingController();
-
   late int number;
 
   void _addTask(BuildContext context) {
@@ -26,7 +26,7 @@ class _TaskScreenState extends State<TaskScreen> {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: AddTaskScreen(titleController: titleController),
+          child: const AddTaskScreen(),
         ),
       ),
     );
@@ -35,7 +35,8 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
-      List<Task> taskList = state.tasks;
+      List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
+      Set<String> titles = state.titles;
 
       number = taskList.length;
 
@@ -48,15 +49,7 @@ class _TaskScreenState extends State<TaskScreen> {
               fontSize: 30,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.add,
-                size: 35,
-              ),
-            ),
-          ],
+          actions: [ShowOnlyTask()],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,7 +70,10 @@ class _TaskScreenState extends State<TaskScreen> {
             const SizedBox(
               height: 8,
             ),
-            TaskList(tasks: taskList)
+            TaskList(
+              tasks: taskList,
+              titles: titles,
+            )
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -87,72 +83,5 @@ class _TaskScreenState extends State<TaskScreen> {
         ),
       );
     });
-  }
-}
-
-class AddTaskScreen extends StatelessWidget {
-   AddTaskScreen({
-    Key? key,
-    required this.titleController,
-  }) : super(key: key);
-
-  final TextEditingController titleController;
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          const Text(
-            'add task',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          PriorityWidget(),
-          const SizedBox(
-            height: 10,
-          ),
-          TextField(
-            autofocus: true,
-            decoration: const InputDecoration(
-              label: Text(
-                'Title',
-                style: TextStyle(fontSize: 18.5),
-              ),
-              border: OutlineInputBorder(),
-            ),
-            controller: titleController,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'Cancle',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                var task = Task(
-                  title: titleController.text,
-                );
-                titleController.text = "";
-                context.read<TaskBloc>().add(AddTask(task: task));
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Add',
-              ),
-            ),
-          ]),
-        ],
-      ),
-    );
   }
 }

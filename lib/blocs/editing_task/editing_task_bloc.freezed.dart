@@ -17,9 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EditingTaskState {
   String get title => throw _privateConstructorUsedError;
-  bool get isRed => throw _privateConstructorUsedError;
-  bool get isGreen => throw _privateConstructorUsedError;
-  bool get isYellow => throw _privateConstructorUsedError;
+  dynamic get priority => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditingTaskStateCopyWith<EditingTaskState> get copyWith =>
@@ -32,7 +30,7 @@ abstract class $EditingTaskStateCopyWith<$Res> {
           EditingTaskState value, $Res Function(EditingTaskState) then) =
       _$EditingTaskStateCopyWithImpl<$Res, EditingTaskState>;
   @useResult
-  $Res call({String title, bool isRed, bool isGreen, bool isYellow});
+  $Res call({String title, dynamic priority});
 }
 
 /// @nodoc
@@ -49,27 +47,17 @@ class _$EditingTaskStateCopyWithImpl<$Res, $Val extends EditingTaskState>
   @override
   $Res call({
     Object? title = null,
-    Object? isRed = null,
-    Object? isGreen = null,
-    Object? isYellow = null,
+    Object? priority = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      isRed: null == isRed
-          ? _value.isRed
-          : isRed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isGreen: null == isGreen
-          ? _value.isGreen
-          : isGreen // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isYellow: null == isYellow
-          ? _value.isYellow
-          : isYellow // ignore: cast_nullable_to_non_nullable
-              as bool,
+      priority: freezed == priority
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -82,7 +70,7 @@ abstract class _$$EditingTaskStateImplCopyWith<$Res>
       __$$EditingTaskStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, bool isRed, bool isGreen, bool isYellow});
+  $Res call({String title, dynamic priority});
 }
 
 /// @nodoc
@@ -97,27 +85,14 @@ class __$$EditingTaskStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
-    Object? isRed = null,
-    Object? isGreen = null,
-    Object? isYellow = null,
+    Object? priority = freezed,
   }) {
     return _then(_$EditingTaskStateImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      isRed: null == isRed
-          ? _value.isRed
-          : isRed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isGreen: null == isGreen
-          ? _value.isGreen
-          : isGreen // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isYellow: null == isYellow
-          ? _value.isYellow
-          : isYellow // ignore: cast_nullable_to_non_nullable
-              as bool,
+      priority: freezed == priority ? _value.priority! : priority,
     ));
   }
 }
@@ -126,27 +101,18 @@ class __$$EditingTaskStateImplCopyWithImpl<$Res>
 
 class _$EditingTaskStateImpl implements _EditingTaskState {
   const _$EditingTaskStateImpl(
-      {this.title = '',
-      this.isRed = false,
-      this.isGreen = false,
-      this.isYellow = false});
+      {this.title = '', this.priority = PriorityState.none});
 
   @override
   @JsonKey()
   final String title;
   @override
   @JsonKey()
-  final bool isRed;
-  @override
-  @JsonKey()
-  final bool isGreen;
-  @override
-  @JsonKey()
-  final bool isYellow;
+  final dynamic priority;
 
   @override
   String toString() {
-    return 'EditingTaskState(title: $title, isRed: $isRed, isGreen: $isGreen, isYellow: $isYellow)';
+    return 'EditingTaskState(title: $title, priority: $priority)';
   }
 
   @override
@@ -155,14 +121,12 @@ class _$EditingTaskStateImpl implements _EditingTaskState {
         (other.runtimeType == runtimeType &&
             other is _$EditingTaskStateImpl &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.isRed, isRed) || other.isRed == isRed) &&
-            (identical(other.isGreen, isGreen) || other.isGreen == isGreen) &&
-            (identical(other.isYellow, isYellow) ||
-                other.isYellow == isYellow));
+            const DeepCollectionEquality().equals(other.priority, priority));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, isRed, isGreen, isYellow);
+  int get hashCode => Object.hash(
+      runtimeType, title, const DeepCollectionEquality().hash(priority));
 
   @JsonKey(ignore: true)
   @override
@@ -174,19 +138,12 @@ class _$EditingTaskStateImpl implements _EditingTaskState {
 
 abstract class _EditingTaskState implements EditingTaskState {
   const factory _EditingTaskState(
-      {final String title,
-      final bool isRed,
-      final bool isGreen,
-      final bool isYellow}) = _$EditingTaskStateImpl;
+      {final String title, final dynamic priority}) = _$EditingTaskStateImpl;
 
   @override
   String get title;
   @override
-  bool get isRed;
-  @override
-  bool get isGreen;
-  @override
-  bool get isYellow;
+  dynamic get priority;
   @override
   @JsonKey(ignore: true)
   _$$EditingTaskStateImplCopyWith<_$EditingTaskStateImpl> get copyWith =>

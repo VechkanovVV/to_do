@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
     brightness: Brightness.light,
   );
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: lightColorScheme,
           useMaterial3: true,
         ),
-        home:  TaskScreen(),
+        home: const TaskScreen(),
       ),
     );
   }

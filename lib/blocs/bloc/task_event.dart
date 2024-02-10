@@ -51,13 +51,26 @@ class TopTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
-class RedTask extends TaskEvent {
-  final Task task;
+class HighPriority extends TaskEvent {
+  const HighPriority();
+}
 
-  const RedTask({
-    required this.task,
-  });
+class InitialOrder extends TaskEvent {
+  const InitialOrder();
+}
 
-  @override
-  List<Object> get props => [task];
+class MediumPriority extends TaskEvent {
+  const MediumPriority();
+}
+
+class LowPriority extends TaskEvent {
+  const LowPriority();
+}
+
+class FavouritePriority extends TaskEvent {
+  const FavouritePriority();
+}
+
+class DonePriority extends TaskEvent {
+  const DonePriority();
 }
