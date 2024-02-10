@@ -7,7 +7,6 @@ import '../blocs/bloc_exports.dart';
 class ShowOnlyTask extends StatelessWidget {
   ShowOnlyTask({super.key});
 
-  var _initial = SortLabel.normalOrder.label;
   final _states = [
     SortLabel.low,
     SortLabel.medium,
@@ -31,7 +30,6 @@ class ShowOnlyTask extends StatelessWidget {
               );
             }).toList(),
             onChanged: (String? newValue) {
-              _initial = newValue!;
               switch (newValue) {
                 case 'high':
                   context.read<DropDownBloc>().add(High());
@@ -59,7 +57,7 @@ class ShowOnlyTask extends StatelessWidget {
                   break;
               }
             },
-            value: _initial,
+            value: state.state,
           );
         },
       ),

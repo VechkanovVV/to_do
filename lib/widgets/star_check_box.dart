@@ -25,7 +25,9 @@ class StarCheckBox extends StatelessWidget {
           ),
           Icon(
             Icons.star,
-            color: (task.isFavourite ?? false) ? Colors.yellow : Colors.transparent,
+            color: (task.isFavourite)
+                ? Colors.yellow
+                : Colors.transparent,
             size: 32.0,
           ),
         ],

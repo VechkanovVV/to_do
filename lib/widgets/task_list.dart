@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/blocs/bloc_exports.dart';
+import 'package:to_do/enums/priority_state.dart';
 import 'package:to_do/widgets/star_check_box.dart';
 
 import '../modules/task.dart';
@@ -78,11 +79,11 @@ class TaskList extends StatelessWidget {
                     ),
                     Container(
                       width: 8,
-                      color: (tasks[index].isRed ?? false)
+                      color: (tasks[index].priority == PriorityState.high)
                           ? Colors.red
-                          : (tasks[index].isGreen ?? false)
+                          : (tasks[index].priority == PriorityState.low)
                               ? Colors.green
-                              : (tasks[index].isYellow ?? false)
+                              : (tasks[index].priority == PriorityState.medium)
                                   ? Colors.yellow
                                   : Colors.white,
                     ),

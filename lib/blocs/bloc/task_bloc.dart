@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import '../../enums/sort_label.dart';
+import 'package:to_do/enums/priority_state.dart';
 import '../../modules/task.dart';
 
 part 'task_event.dart';
@@ -26,8 +25,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isDone ?? false)) e.isVisible = false;
-      return e;
+      if (!(e.isDone)) {
+        return e.copyWith(isVisible: false);
+      } else {
+        return e.copyWith(isVisible: true);
+      }
     }).toList()));
   }
 
@@ -35,12 +37,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isFavourite ?? false)) {
-        e.isVisible = false;
+      if (!(e.isFavourite)) {
+        return e.copyWith(isVisible: false);
       } else {
-        e.isVisible = true;
+        return e.copyWith(isVisible: true);
       }
-      return e;
     }).toList()));
   }
 
@@ -48,12 +49,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isGreen ?? false)) {
-        e.isVisible = false;
+      if (e.priority != PriorityState.low) {
+        return e.copyWith(isVisible: false);
       } else {
-        e.isVisible = true;
+        return e.copyWith(isVisible: true);
       }
-      return e;
     }).toList()));
   }
 
@@ -61,12 +61,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isYellow ?? false)) {
-        e.isVisible = false;
+      if (e.priority != PriorityState.medium) {
+        return e.copyWith(isVisible: false);
       } else {
-        e.isVisible = true;
+        return e.copyWith(isVisible: true);
       }
-      return e;
     }).toList()));
   }
 
@@ -74,8 +73,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      e.isVisible = true;
-      return e;
+      return e.copyWith(isVisible: true);
     }).toList()));
   }
 
@@ -83,12 +81,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     final state = this.state;
     emit(TaskState(
         tasks: state.tasks.map<Task>((e) {
-      if (!(e.isRed ?? false)) {
-        e.isVisible = false;
+      if (e.priority != PriorityState.high) {
+        return e.copyWith(isVisible: false);
       } else {
-        e.isVisible = true;
+        return e.copyWith(isVisible: true);
       }
-      return e;
     }).toList()));
   }
 

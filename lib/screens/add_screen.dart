@@ -10,7 +10,6 @@ class AddTaskScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,7 +37,7 @@ class AddTaskScreen extends StatelessWidget {
               TextField(
                 autofocus: true,
                 onChanged: (text) {
-                    context.read<EditingTaskBloc>().add(SetTitleEvent(text));
+                  context.read<EditingTaskBloc>().add(SetTitleEvent(text));
                 },
                 decoration: const InputDecoration(
                   label: Text(
@@ -59,9 +58,7 @@ class AddTaskScreen extends StatelessWidget {
                   onPressed: () {
                     var task = Task(
                       title: state.title,
-                      isRed: state.isRed,
-                      isGreen: state.isGreen,
-                      isYellow: state.isYellow,
+                      priority: state.priority,
                     );
                     context.read<TaskBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
