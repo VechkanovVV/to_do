@@ -36,7 +36,6 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
       List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
-      Set<String> titles = state.titles;
 
       number = taskList.length;
 
@@ -72,7 +71,6 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
             TaskList(
               tasks: taskList,
-              titles: titles,
             )
           ],
         ),

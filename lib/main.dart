@@ -6,13 +6,7 @@ import 'package:to_do/blocs/bloc/task_bloc.dart';
 import 'package:to_do/screens/task_screen.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final storage = await HydratedStorage.build(
-      storageDirectory: await getApplicationDocumentsDirectory());
-  HydratedBlocOverrides.runZoned(
-    () => runApp(MyApp()),
-    storage: storage,
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

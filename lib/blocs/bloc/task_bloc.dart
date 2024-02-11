@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:to_do/enums/priority_state.dart';
 import '../../modules/task.dart';
@@ -7,7 +8,9 @@ part 'task_event.dart';
 
 part 'task_state.dart';
 
-class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
+part 'task_bloc.freezed.dart';
+
+class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_onAddTask);
     on<DeleteTask>(_onDeleteTask);
@@ -91,9 +94,11 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
 
   void _onAddTask(AddTask event, Emitter<TaskState> emit) {
     final state = this.state;
-    emit(TaskState(
+    emit(
+      TaskState(
         tasks: List.from(state.tasks)..add(event.task),
-        titles: Set.from(state.titles)..add(event.task.title)));
+      ),
+    );
   }
 
   void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) {
@@ -123,15 +128,5 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
         ? tasks.insert(index, task.copyWith(isFavourite: true))
         : tasks.insert(index, task.copyWith(isFavourite: false));
     emit(TaskState(tasks: tasks));
-  }
-
-  @override
-  TaskState? fromJson(Map<String, dynamic> json) {
-    return TaskState.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic>? toJson(TaskState state) {
-    return state.toMap();
   }
 }
