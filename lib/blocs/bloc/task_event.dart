@@ -76,6 +76,5 @@ class DonePriority extends TaskEvent {
 }
 
 class SetTasks extends TaskEvent {
-
   const SetTasks();
 }
