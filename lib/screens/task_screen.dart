@@ -38,7 +38,7 @@ class _TaskScreenState extends State<TaskScreen> {
       List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
 
       number = taskList.length;
-
+      context.read<TaskBloc>().add(const SetTasks());
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,

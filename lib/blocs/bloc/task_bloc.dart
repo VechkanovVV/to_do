@@ -28,7 +28,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   void _onSetTasks(SetTasks event, Emitter<TaskState> emit) async {
-    Future<List<Task>> list = event.list;
+    List<Task> list = await db.getTasks();
+    emit(TaskState(tasks: list));
   }
 
   void _onDonePriority(DonePriority event, Emitter<TaskState> emit) {
