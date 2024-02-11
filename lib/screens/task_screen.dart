@@ -35,10 +35,13 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
+      if (state.tasks.isEmpty){
+        context.read<TaskBloc>().add(const SetTasks());
+      }
+
       List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
 
       number = taskList.length;
-      context.read<TaskBloc>().add(const SetTasks());
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,
