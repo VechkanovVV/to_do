@@ -74,3 +74,8 @@ class FavouritePriority extends TaskEvent {
 class DonePriority extends TaskEvent {
   const DonePriority();
 }
+
+class SetTasks extends TaskEvent {
+  final Future<List<Task>> list;
+  const SetTasks({required this.list});
+}

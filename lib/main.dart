@@ -10,22 +10,21 @@ import 'modules/task.dart';
 
 Future<void> main() async {
   TaskRepository db = FirebaseTaskRepository();
-  await db.add(Task(title: 'kek'));
-  runApp(MyApp());
+  runApp(MyApp(db: db));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  final TaskRepository db;
+  MyApp({Key? key, required this.db}) : super(key: key);
   final lightColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.blue,
     brightness: Brightness.light,
   );
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskBloc(),
+      create: (context) => TaskBloc(db: db),
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: lightColorScheme,
