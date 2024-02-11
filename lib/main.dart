@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:to_do/blocs/bloc/task_bloc.dart';
+import 'package:to_do/repository/firebase_task_repository.dart';
+import 'package:to_do/repository/task_repository.dart';
 import 'package:to_do/screens/task_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'modules/task.dart';
 
 Future<void> main() async {
+  TaskRepository db = FirebaseTaskRepository();
+  await db.add(Task(title: 'kek'));
   runApp(MyApp());
 }
 
