@@ -19,7 +19,7 @@ class DeviceInfo {
     }
     String key = "";
     for (String k in _deviceData.keys) {
-      key += k + "_";
+      key += _deviceData[k] + "_";
     }
     return key;
   }
