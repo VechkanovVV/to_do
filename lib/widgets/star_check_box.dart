@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/bloc/task_bloc.dart';
-import '../modules/task.dart';
+import '../modules/task/task.dart';
 
 class StarCheckBox extends StatelessWidget {
   final Task task;

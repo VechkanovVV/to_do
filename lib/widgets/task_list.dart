@@ -3,7 +3,7 @@ import 'package:to_do/blocs/bloc_exports.dart';
 import 'package:to_do/enums/priority_state.dart';
 import 'package:to_do/widgets/star_check_box.dart';
 
-import '../modules/task.dart';
+import '../modules/task/task.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({Key? key, required this.tasks}) : super(key: key);

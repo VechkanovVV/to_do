@@ -23,6 +23,7 @@ dependencies:
   json_annotation: ^4.8.1
   firebase_core:
   cloud_firestore:
+  device_info_plus: ^9.1.2
 
 dev_dependencies:
   flutter_test:

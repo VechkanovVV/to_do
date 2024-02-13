@@ -4,7 +4,7 @@ import 'package:to_do/blocs/bloc/task_bloc.dart';
 
 import 'package:to_do/widgets/task_list.dart';
 
-import '../modules/task.dart';
+import '../modules/task/task.dart';
 import '../widgets/show_only_tasks.dart';
 import 'add_screen.dart';
 
@@ -35,7 +35,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
-      if (state.tasks.isEmpty){
+      if (state.tasks.isEmpty) {
         context.read<TaskBloc>().add(const SetTasks());
       }
 

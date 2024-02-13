@@ -6,7 +6,6 @@ import 'package:to_do/repository/task_repository.dart';
 import 'package:to_do/screens/task_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'modules/task.dart';
 
 Future<void> main() async {
   TaskRepository db = FirebaseTaskRepository();

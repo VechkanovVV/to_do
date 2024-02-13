@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:to_do/enums/priority_state.dart';
-import '../../modules/task.dart';
+import '../../modules/task/task.dart';
 import '../../repository/task_repository.dart';
 
 part 'task_event.dart';

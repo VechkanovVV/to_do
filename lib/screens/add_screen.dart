@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../blocs/editing_task/editing_task_bloc.dart';
-import '../modules/task.dart';
+import '../modules/task/task.dart';
 import '../widgets/priority_widget.dart';
 
 class AddTaskScreen extends StatelessWidget {

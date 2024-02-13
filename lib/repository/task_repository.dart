@@ -1,4 +1,4 @@
-import 'package:to_do/modules/task.dart';
+import '../modules/task/task.dart';
 
 abstract interface class TaskRepository {
   Future<List<Task>> getTasks();

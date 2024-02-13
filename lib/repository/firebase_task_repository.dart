@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:to_do/modules/task.dart';
 import 'package:to_do/repository/task_repository.dart';
 
 import '../firebase_options.dart';
+import '../modules/task/task.dart';
 
 class FirebaseTaskRepository implements TaskRepository {
   @override
@@ -14,9 +14,8 @@ class FirebaseTaskRepository implements TaskRepository {
   }
 
   @override
-  Future<void> deleteTask(Task task) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+  Future<void> deleteTask(Task task) async {
+    await _init();
   }
 
   @override
