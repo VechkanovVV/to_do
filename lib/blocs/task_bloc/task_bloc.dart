@@ -102,20 +102,20 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   void _onAddTask(AddTask event, Emitter<TaskState> emit) async {
     final state = this.state;
-    await db.add(event.task);
     emit(
       TaskState(
         tasks: List.from(state.tasks)..add(event.task),
       ),
     );
+    await db.add(event.task);
   }
 
   void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     List<Task> tasks = List.from(state.tasks)..remove(task);
-    await db.deleteTask(event.task);
     emit(TaskState(tasks: tasks));
+    await db.deleteTask(event.task);
   }
 
   void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
@@ -127,8 +127,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
         ? tasks.insert(index, task.copyWith(isDone: true))
         : tasks.insert(index, task.copyWith(isDone: false));
 
-    await db.updateTask(tasks[index]);
     emit(TaskState(tasks: tasks));
+    await db.updateTask(tasks[index]);
   }
 
   void _onTopTask(TopTask event, Emitter<TaskState> emit) async {
@@ -139,7 +139,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     task.isFavourite == false
         ? tasks.insert(index, task.copyWith(isFavourite: true))
         : tasks.insert(index, task.copyWith(isFavourite: false));
-    await db.updateTask(tasks[index]);
     emit(TaskState(tasks: tasks));
+    await db.updateTask(tasks[index]);
   }
 }
