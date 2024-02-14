@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do/blocs/bloc/task_bloc.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
 import 'package:to_do/repository/firebase_task_repository.dart';
 import 'package:to_do/repository/task_repository.dart';
 import 'package:to_do/screens/task_screen.dart';
