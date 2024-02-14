@@ -14,7 +14,7 @@ class DeviceInfo {
         _deviceData = _readIosDeviceInfo(await _deviceInfo.iosInfo);
         break;
       default:
-      // Handle other platforms if needed
+        throw Exception('incorrect platform');
     }
     String key = "";
     for (String k in _deviceData.keys) {
