@@ -34,9 +34,10 @@ class FirebaseTaskRepository implements TaskRepository {
   }
 
   @override
-  Future<void> updateTask(Task task) {
-    // TODO: implement updateTask
-    throw UnimplementedError();
+  Future<void> updateTask(Task task) async {
+    await _init();
+    String key = await DeviceInfo.getInfo();
+    FirebaseFirestore.instance.collection(key).doc(task.title).set(task.toJson());
   }
 
   Future<void> _init() async {

@@ -118,7 +118,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     emit(TaskState(tasks: tasks));
   }
 
-  void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) {
+  void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -126,10 +126,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     task.isDone == false
         ? tasks.insert(index, task.copyWith(isDone: true))
         : tasks.insert(index, task.copyWith(isDone: false));
+
+    await db.updateTask(tasks[index]);
     emit(TaskState(tasks: tasks));
   }
 
-  void _onTopTask(TopTask event, Emitter<TaskState> emit) {
+  void _onTopTask(TopTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -137,6 +139,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     task.isFavourite == false
         ? tasks.insert(index, task.copyWith(isFavourite: true))
         : tasks.insert(index, task.copyWith(isFavourite: false));
+    await db.updateTask(tasks[index]);
     emit(TaskState(tasks: tasks));
   }
 }
