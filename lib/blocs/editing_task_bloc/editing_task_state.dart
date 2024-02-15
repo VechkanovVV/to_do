@@ -4,6 +4,7 @@ part of 'editing_task_bloc.dart';
 class EditingTaskState with _$EditingTaskState {
   const factory EditingTaskState({
     @Default('') String title,
+    @Default('') String description,
     @Default(PriorityState.none) priority,
   }) = _EditingTaskState;
 }

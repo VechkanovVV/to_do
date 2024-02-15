@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EditingTaskState {
   String get title => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   dynamic get priority => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $EditingTaskStateCopyWith<$Res> {
           EditingTaskState value, $Res Function(EditingTaskState) then) =
       _$EditingTaskStateCopyWithImpl<$Res, EditingTaskState>;
   @useResult
-  $Res call({String title, dynamic priority});
+  $Res call({String title, String description, dynamic priority});
 }
 
 /// @nodoc
@@ -47,12 +48,17 @@ class _$EditingTaskStateCopyWithImpl<$Res, $Val extends EditingTaskState>
   @override
   $Res call({
     Object? title = null,
+    Object? description = null,
     Object? priority = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       priority: freezed == priority
           ? _value.priority
@@ -70,7 +76,7 @@ abstract class _$$EditingTaskStateImplCopyWith<$Res>
       __$$EditingTaskStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, dynamic priority});
+  $Res call({String title, String description, dynamic priority});
 }
 
 /// @nodoc
@@ -85,12 +91,17 @@ class __$$EditingTaskStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
+    Object? description = null,
     Object? priority = freezed,
   }) {
     return _then(_$EditingTaskStateImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       priority: freezed == priority ? _value.priority! : priority,
     ));
@@ -101,18 +112,23 @@ class __$$EditingTaskStateImplCopyWithImpl<$Res>
 
 class _$EditingTaskStateImpl implements _EditingTaskState {
   const _$EditingTaskStateImpl(
-      {this.title = '', this.priority = PriorityState.none});
+      {this.title = '',
+      this.description = '',
+      this.priority = PriorityState.none});
 
   @override
   @JsonKey()
   final String title;
   @override
   @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
   final dynamic priority;
 
   @override
   String toString() {
-    return 'EditingTaskState(title: $title, priority: $priority)';
+    return 'EditingTaskState(title: $title, description: $description, priority: $priority)';
   }
 
   @override
@@ -121,12 +137,14 @@ class _$EditingTaskStateImpl implements _EditingTaskState {
         (other.runtimeType == runtimeType &&
             other is _$EditingTaskStateImpl &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality().equals(other.priority, priority));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, title, const DeepCollectionEquality().hash(priority));
+  int get hashCode => Object.hash(runtimeType, title, description,
+      const DeepCollectionEquality().hash(priority));
 
   @JsonKey(ignore: true)
   @override
@@ -138,10 +156,14 @@ class _$EditingTaskStateImpl implements _EditingTaskState {
 
 abstract class _EditingTaskState implements EditingTaskState {
   const factory _EditingTaskState(
-      {final String title, final dynamic priority}) = _$EditingTaskStateImpl;
+      {final String title,
+      final String description,
+      final dynamic priority}) = _$EditingTaskStateImpl;
 
   @override
   String get title;
+  @override
+  String get description;
   @override
   dynamic get priority;
   @override

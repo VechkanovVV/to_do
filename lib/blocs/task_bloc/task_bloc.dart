@@ -2,7 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:to_do/enums/priority_state.dart';
-import '../../modules/task.dart';
+import '../../modules/task/task.dart';
+import '../../repository/task_repository.dart';
 
 part 'task_event.dart';
 
@@ -11,7 +12,8 @@ part 'task_state.dart';
 part 'task_bloc.freezed.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
-  TaskBloc() : super(const TaskState()) {
+  final TaskRepository db;
+  TaskBloc({required this.db}) : super(const TaskState()) {
     on<AddTask>(_onAddTask);
     on<DeleteTask>(_onDeleteTask);
     on<UpdateTask>(_onUpdateTask);
@@ -22,6 +24,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<LowPriority>(_onLowPriority);
     on<FavouritePriority>(_onFavouritePriority);
     on<DonePriority>(_onDonePriority);
+    on<SetTasks>(_onSetTasks);
+  }
+
+  Future<void> _onSetTasks(SetTasks event, Emitter<TaskState> emit) async {
+    List<Task> list = await db.getTasks();
+    emit(TaskState(tasks: list));
   }
 
   void _onDonePriority(DonePriority event, Emitter<TaskState> emit) {
@@ -92,23 +100,25 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     }).toList()));
   }
 
-  void _onAddTask(AddTask event, Emitter<TaskState> emit) {
+  Future<void> _onAddTask(AddTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     emit(
       TaskState(
         tasks: List.from(state.tasks)..add(event.task),
       ),
     );
+    await db.add(event.task);
   }
 
-  void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) {
+  Future<void> _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     List<Task> tasks = List.from(state.tasks)..remove(task);
     emit(TaskState(tasks: tasks));
+    await db.deleteTask(event.task);
   }
 
-  void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) {
+  Future<void> _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -116,10 +126,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     task.isDone == false
         ? tasks.insert(index, task.copyWith(isDone: true))
         : tasks.insert(index, task.copyWith(isDone: false));
+
     emit(TaskState(tasks: tasks));
+    await db.updateTask(tasks[index]);
   }
 
-  void _onTopTask(TopTask event, Emitter<TaskState> emit) {
+  Future<void> _onTopTask(TopTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -128,5 +140,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
         ? tasks.insert(index, task.copyWith(isFavourite: true))
         : tasks.insert(index, task.copyWith(isFavourite: false));
     emit(TaskState(tasks: tasks));
+    await db.updateTask(tasks[index]);
   }
 }

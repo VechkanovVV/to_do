@@ -7,6 +7,7 @@ part 'task.g.dart';
 class Task with _$Task {
   const factory Task({
     required String title,
+    @Default('') String description,
     @Default(false) bool isDone,
     @Default(false) bool isDeleted,
     @Default(false) bool isFavourite,

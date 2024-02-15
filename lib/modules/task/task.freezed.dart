@@ -21,6 +21,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Task {
   String get title => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   bool get isDone => throw _privateConstructorUsedError;
   bool get isDeleted => throw _privateConstructorUsedError;
   bool get isFavourite => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $TaskCopyWith<$Res> {
   @useResult
   $Res call(
       {String title,
+      String description,
       bool isDone,
       bool isDeleted,
       bool isFavourite,
@@ -60,6 +62,7 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
   @override
   $Res call({
     Object? title = null,
+    Object? description = null,
     Object? isDone = null,
     Object? isDeleted = null,
     Object? isFavourite = null,
@@ -70,6 +73,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       isDone: null == isDone
           ? _value.isDone
@@ -104,6 +111,7 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
   @useResult
   $Res call(
       {String title,
+      String description,
       bool isDone,
       bool isDeleted,
       bool isFavourite,
@@ -122,6 +130,7 @@ class __$$TaskImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
+    Object? description = null,
     Object? isDone = null,
     Object? isDeleted = null,
     Object? isFavourite = null,
@@ -132,6 +141,10 @@ class __$$TaskImplCopyWithImpl<$Res>
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       isDone: null == isDone
           ? _value.isDone
@@ -162,6 +175,7 @@ class __$$TaskImplCopyWithImpl<$Res>
 class _$TaskImpl implements _Task {
   const _$TaskImpl(
       {required this.title,
+      this.description = '',
       this.isDone = false,
       this.isDeleted = false,
       this.isFavourite = false,
@@ -173,6 +187,9 @@ class _$TaskImpl implements _Task {
 
   @override
   final String title;
+  @override
+  @JsonKey()
+  final String description;
   @override
   @JsonKey()
   final bool isDone;
@@ -191,7 +208,7 @@ class _$TaskImpl implements _Task {
 
   @override
   String toString() {
-    return 'Task(title: $title, isDone: $isDone, isDeleted: $isDeleted, isFavourite: $isFavourite, priority: $priority, isVisible: $isVisible)';
+    return 'Task(title: $title, description: $description, isDone: $isDone, isDeleted: $isDeleted, isFavourite: $isFavourite, priority: $priority, isVisible: $isVisible)';
   }
 
   @override
@@ -200,6 +217,8 @@ class _$TaskImpl implements _Task {
         (other.runtimeType == runtimeType &&
             other is _$TaskImpl &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.isDone, isDone) || other.isDone == isDone) &&
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
@@ -213,8 +232,8 @@ class _$TaskImpl implements _Task {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, title, isDone, isDeleted, isFavourite, priority, isVisible);
+  int get hashCode => Object.hash(runtimeType, title, description, isDone,
+      isDeleted, isFavourite, priority, isVisible);
 
   @JsonKey(ignore: true)
   @override
@@ -233,6 +252,7 @@ class _$TaskImpl implements _Task {
 abstract class _Task implements Task {
   const factory _Task(
       {required final String title,
+      final String description,
       final bool isDone,
       final bool isDeleted,
       final bool isFavourite,
@@ -243,6 +263,8 @@ abstract class _Task implements Task {
 
   @override
   String get title;
+  @override
+  String get description;
   @override
   bool get isDone;
   @override

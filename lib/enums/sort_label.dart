@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 enum SortLabel {
-  high('high', Colors.red),
-  medium('medium', Colors.yellow),
-  low('low', Colors.green),
-  favourite('favourite', Colors.yellow),
-  done('done', Colors.grey),
-  normalOrder('normal order', Colors.blue);
+  high('high'),
+  medium('medium'),
+  low('low'),
+  favourite('favourite'),
+  done('done'),
+  normalOrder('normal order');
 
-  const SortLabel(this.label, this.color);
+  const SortLabel(this.label);
 
   final String label;
-  final Color color;
 }
