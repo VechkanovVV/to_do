@@ -6,7 +6,7 @@ import '../blocs/bloc_exports.dart';
 import '../enums/priority_state.dart';
 import '../modules/task/task.dart';
 
-class ListItem extends StatelessWidget{
+class ListItem extends StatelessWidget {
   const ListItem({super.key, required this.tasks, required this.index});
   final List<Task> tasks;
   final int index;
@@ -14,7 +14,7 @@ class ListItem extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var currentTask = tasks[index];
-    return   Container(
+    return Container(
       height: 65,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -37,9 +37,7 @@ class ListItem extends StatelessWidget{
                   size: 30,
                 ),
                 onTap: () {
-                  context
-                      .read<TaskBloc>()
-                      .add(DeleteTask(task: tasks[index]));
+                  context.read<TaskBloc>().add(DeleteTask(task: tasks[index]));
                 },
               ),
               const SizedBox(
@@ -64,9 +62,7 @@ class ListItem extends StatelessWidget{
             Checkbox(
               value: currentTask.isDone,
               onChanged: (value) {
-                context
-                    .read<TaskBloc>()
-                    .add(UpdateTask(task: tasks[index]));
+                context.read<TaskBloc>().add(UpdateTask(task: tasks[index]));
               },
             ),
             const SizedBox(
@@ -77,15 +73,14 @@ class ListItem extends StatelessWidget{
               color: (tasks[index].priority == PriorityState.high)
                   ? Colors.red
                   : (tasks[index].priority == PriorityState.low)
-                  ? Colors.green
-                  : (tasks[index].priority == PriorityState.medium)
-                  ? Colors.yellow
-                  : Colors.white,
+                      ? Colors.green
+                      : (tasks[index].priority == PriorityState.medium)
+                          ? Colors.yellow
+                          : Colors.white,
             ),
           ]),
         ],
       ),
     );
   }
-
 }

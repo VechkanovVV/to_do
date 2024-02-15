@@ -18,17 +18,8 @@ class _TaskScreenState extends State<TaskScreen> {
   late int number;
 
   void _addTask(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: const AddTaskScreen(),
-        ),
-      ),
-    );
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const AddTaskScreen()));
   }
 
   @override

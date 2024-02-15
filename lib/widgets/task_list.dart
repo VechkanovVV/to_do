@@ -16,9 +16,11 @@ class TaskList extends StatelessWidget {
       child: ListView.builder(
         itemCount: tasks.length,
         itemBuilder: (context, index) {
-
           return Column(children: [
-            ListItem(tasks: tasks, index: index,),
+            ListItem(
+              tasks: tasks,
+              index: index,
+            ),
             const SizedBox(
               height: 5,
             ),

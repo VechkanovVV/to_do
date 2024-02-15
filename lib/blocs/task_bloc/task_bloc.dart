@@ -116,7 +116,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     List<Task> tasks = List.from(state.tasks)..remove(task);
     emit(TaskState(tasks: tasks));
     await db.deleteTask(event.task);
-
   }
 
   Future<void> _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {

@@ -14,6 +14,12 @@ class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
     on<SetMediumPriorityEvent>(_onMediumPriority);
     on<SetLowPriorityEvent>(_onLowPriority);
     on<SetTitleEvent>(_onTitleEvent);
+    on<SetDescriptionEvent>(_onSetDescription);
+  }
+
+  void _onSetDescription(
+      SetDescriptionEvent event, Emitter<EditingTaskState> emit) {
+    emit(state.copyWith(description: event.text));
   }
 
   void _onTitleEvent(SetTitleEvent event, Emitter<EditingTaskState> emit) {
