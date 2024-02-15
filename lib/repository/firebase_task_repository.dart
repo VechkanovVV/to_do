@@ -22,7 +22,7 @@ class FirebaseTaskRepository implements TaskRepository {
   Future<void> deleteTask(Task task) async {
     await _init();
     String key = await DeviceInfo.getInfo();
-    await FirebaseFirestore.instance.collection(key).doc('tasks').delete();
+    await FirebaseFirestore.instance.collection(key).doc(task.title).delete();
   }
 
   @override

@@ -27,7 +27,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<SetTasks>(_onSetTasks);
   }
 
-  void _onSetTasks(SetTasks event, Emitter<TaskState> emit) async {
+  Future<void> _onSetTasks(SetTasks event, Emitter<TaskState> emit) async {
     List<Task> list = await db.getTasks();
     emit(TaskState(tasks: list));
   }
@@ -100,7 +100,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     }).toList()));
   }
 
-  void _onAddTask(AddTask event, Emitter<TaskState> emit) async {
+  Future<void> _onAddTask(AddTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     emit(
       TaskState(
@@ -110,15 +110,16 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     await db.add(event.task);
   }
 
-  void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
+  Future<void> _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     List<Task> tasks = List.from(state.tasks)..remove(task);
     emit(TaskState(tasks: tasks));
     await db.deleteTask(event.task);
+
   }
 
-  void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
+  Future<void> _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -131,7 +132,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     await db.updateTask(tasks[index]);
   }
 
-  void _onTopTask(TopTask event, Emitter<TaskState> emit) async {
+  Future<void> _onTopTask(TopTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
