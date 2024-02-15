@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do/blocs/bloc/task_bloc.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
 
 import 'package:to_do/widgets/task_list.dart';
 
-import '../modules/task.dart';
+import '../modules/task/task.dart';
 import '../widgets/show_only_tasks.dart';
 import 'add_screen.dart';
 
@@ -35,11 +34,13 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, TaskState>(builder: (context, state) {
+      if (state.tasks.isEmpty) {
+        context.read<TaskBloc>().add(const SetTasks());
+      }
+
       List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
-      Set<String> titles = state.titles;
 
       number = taskList.length;
-
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,
@@ -72,7 +73,6 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
             TaskList(
               tasks: taskList,
-              titles: titles,
             )
           ],
         ),

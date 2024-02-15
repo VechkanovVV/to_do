@@ -74,3 +74,7 @@ class FavouritePriority extends TaskEvent {
 class DonePriority extends TaskEvent {
   const DonePriority();
 }
+
+class SetTasks extends TaskEvent {
+  const SetTasks();
+}

@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:to_do/blocs/bloc/task_bloc.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
+import 'package:to_do/repository/firebase_task_repository.dart';
+import 'package:to_do/repository/task_repository.dart';
 import 'package:to_do/screens/task_screen.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final storage = await HydratedStorage.build(
-      storageDirectory: await getApplicationDocumentsDirectory());
-  HydratedBlocOverrides.runZoned(
-    () => runApp(MyApp()),
-    storage: storage,
-  );
+  TaskRepository db = FirebaseTaskRepository();
+  runApp(MyApp(db: db));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  final TaskRepository db;
+  MyApp({Key? key, required this.db}) : super(key: key);
   final lightColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.blue,
     brightness: Brightness.light,
   );
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskBloc(),
+      create: (context) => TaskBloc(db: db),
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: lightColorScheme,

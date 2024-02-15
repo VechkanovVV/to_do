@@ -1,14 +1,19 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:to_do/enums/priority_state.dart';
-import '../../modules/task.dart';
+import '../../modules/task/task.dart';
+import '../../repository/task_repository.dart';
 
 part 'task_event.dart';
 
 part 'task_state.dart';
 
-class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
-  TaskBloc() : super(const TaskState()) {
+part 'task_bloc.freezed.dart';
+
+class TaskBloc extends Bloc<TaskEvent, TaskState> {
+  final TaskRepository db;
+  TaskBloc({required this.db}) : super(const TaskState()) {
     on<AddTask>(_onAddTask);
     on<DeleteTask>(_onDeleteTask);
     on<UpdateTask>(_onUpdateTask);
@@ -19,6 +24,12 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<LowPriority>(_onLowPriority);
     on<FavouritePriority>(_onFavouritePriority);
     on<DonePriority>(_onDonePriority);
+    on<SetTasks>(_onSetTasks);
+  }
+
+  void _onSetTasks(SetTasks event, Emitter<TaskState> emit) async {
+    List<Task> list = await db.getTasks();
+    emit(TaskState(tasks: list));
   }
 
   void _onDonePriority(DonePriority event, Emitter<TaskState> emit) {
@@ -89,21 +100,25 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     }).toList()));
   }
 
-  void _onAddTask(AddTask event, Emitter<TaskState> emit) {
+  void _onAddTask(AddTask event, Emitter<TaskState> emit) async {
     final state = this.state;
-    emit(TaskState(
+    await db.add(event.task);
+    emit(
+      TaskState(
         tasks: List.from(state.tasks)..add(event.task),
-        titles: Set.from(state.titles)..add(event.task.title)));
+      ),
+    );
   }
 
-  void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) {
+  void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     List<Task> tasks = List.from(state.tasks)..remove(task);
+    await db.deleteTask(event.task);
     emit(TaskState(tasks: tasks));
   }
 
-  void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) {
+  void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -111,10 +126,12 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     task.isDone == false
         ? tasks.insert(index, task.copyWith(isDone: true))
         : tasks.insert(index, task.copyWith(isDone: false));
+
+    await db.updateTask(tasks[index]);
     emit(TaskState(tasks: tasks));
   }
 
-  void _onTopTask(TopTask event, Emitter<TaskState> emit) {
+  void _onTopTask(TopTask event, Emitter<TaskState> emit) async {
     final state = this.state;
     final task = event.task;
     final int index = state.tasks.indexOf(task);
@@ -122,16 +139,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     task.isFavourite == false
         ? tasks.insert(index, task.copyWith(isFavourite: true))
         : tasks.insert(index, task.copyWith(isFavourite: false));
+    await db.updateTask(tasks[index]);
     emit(TaskState(tasks: tasks));
-  }
-
-  @override
-  TaskState? fromJson(Map<String, dynamic> json) {
-    return TaskState.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic>? toJson(TaskState state) {
-    return state.toMap();
   }
 }

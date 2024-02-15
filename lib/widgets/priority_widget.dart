@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/enums/priority_state.dart';
 
-import '../blocs/editing_task/editing_task_bloc.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
 
 class PriorityWidget extends StatelessWidget {
   const PriorityWidget({super.key});

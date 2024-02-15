@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/blocs/drop_down/drop_down_bloc.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
 import 'package:to_do/enums/sort_label.dart';
-
-import '../blocs/bloc_exports.dart';
 
 class ShowOnlyTask extends StatelessWidget {
   ShowOnlyTask({super.key});
