@@ -14,14 +14,18 @@ class ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var currentTask = tasks[index];
-    return Container(
-      height: 65,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          width: 1.5,
-          color: Colors.purple,
-        ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        side: BorderSide(
+            color: (tasks[index].priority == PriorityState.high)
+                ? Colors.red
+                : (tasks[index].priority == PriorityState.low)
+                    ? Colors.green
+                    : (tasks[index].priority == PriorityState.medium)
+                        ? Colors.yellow
+                        : Colors.black,
+            width: 3.0),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,16 +71,6 @@ class ListItem extends StatelessWidget {
             ),
             const SizedBox(
               width: 4,
-            ),
-            Container(
-              width: 8,
-              color: (tasks[index].priority == PriorityState.high)
-                  ? Colors.red
-                  : (tasks[index].priority == PriorityState.low)
-                      ? Colors.green
-                      : (tasks[index].priority == PriorityState.medium)
-                          ? Colors.yellow
-                          : Colors.white,
             ),
           ]),
         ],

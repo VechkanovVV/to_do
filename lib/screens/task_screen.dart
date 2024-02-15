@@ -31,7 +31,6 @@ class _TaskScreenState extends State<TaskScreen> {
 
       List<Task> taskList = state.tasks.where((e) => e.isVisible).toList();
 
-      number = taskList.length;
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,
@@ -48,16 +47,6 @@ class _TaskScreenState extends State<TaskScreen> {
           children: [
             const SizedBox(
               height: 8,
-            ),
-            Center(
-              child: Chip(
-                label: Text(
-                  'Tasks: $number',
-                  style: const TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-              ),
             ),
             const SizedBox(
               height: 8,
