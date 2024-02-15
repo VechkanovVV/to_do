@@ -8,6 +8,7 @@ part of 'task.dart';
 
 _$TaskImpl _$$TaskImplFromJson(Map<String, dynamic> json) => _$TaskImpl(
       title: json['title'] as String,
+      description: json['description'] as String? ?? '',
       isDone: json['isDone'] as bool? ?? false,
       isDeleted: json['isDeleted'] as bool? ?? false,
       isFavourite: json['isFavourite'] as bool? ?? false,
@@ -19,6 +20,7 @@ _$TaskImpl _$$TaskImplFromJson(Map<String, dynamic> json) => _$TaskImpl(
 Map<String, dynamic> _$$TaskImplToJson(_$TaskImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
+      'description': instance.description,
       'isDone': instance.isDone,
       'isDeleted': instance.isDeleted,
       'isFavourite': instance.isFavourite,

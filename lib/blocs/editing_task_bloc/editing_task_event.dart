@@ -13,3 +13,9 @@ class SetTitleEvent extends EditingTaskEvent {
 
   SetTitleEvent(this.text);
 }
+
+class SetDescriptionEvent extends EditingTaskEvent {
+  final String text;
+
+  SetDescriptionEvent(this.text);
+}
