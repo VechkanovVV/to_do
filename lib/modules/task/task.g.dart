@@ -10,7 +10,6 @@ _$TaskImpl _$$TaskImplFromJson(Map<String, dynamic> json) => _$TaskImpl(
       title: json['title'] as String,
       description: json['description'] as String? ?? '',
       isDone: json['isDone'] as bool? ?? false,
-      isDeleted: json['isDeleted'] as bool? ?? false,
       isFavourite: json['isFavourite'] as bool? ?? false,
       priority: $enumDecodeNullable(_$PriorityStateEnumMap, json['priority']) ??
           PriorityState.none,
@@ -22,7 +21,6 @@ Map<String, dynamic> _$$TaskImplToJson(_$TaskImpl instance) =>
       'title': instance.title,
       'description': instance.description,
       'isDone': instance.isDone,
-      'isDeleted': instance.isDeleted,
       'isFavourite': instance.isFavourite,
       'priority': _$PriorityStateEnumMap[instance.priority]!,
       'isVisible': instance.isVisible,
