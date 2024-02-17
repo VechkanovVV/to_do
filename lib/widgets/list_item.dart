@@ -105,8 +105,26 @@ class _ListItemState extends State<ListItem> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.grey.shade200,
                           ),
-                          onPressed: () {},
-                          child: Text(
+                          onPressed: () {
+                             showDialog<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Task\'s description'),
+                                  content:  Text(widget.tasks[widget.index].description),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      child: const Text('Ok'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Text(
                             'Show\ndescription',
                             style: TextStyle(color: Colors.black),
                           )),
@@ -123,7 +141,6 @@ class _ListItemState extends State<ListItem> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => const AddTaskScreen()));
-
                     },
                   ),
                 ),
@@ -135,3 +152,4 @@ class _ListItemState extends State<ListItem> {
     );
   }
 }
+
