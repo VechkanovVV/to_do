@@ -4,6 +4,7 @@ import 'package:to_do/widgets/star_check_box.dart';
 import '../blocs/bloc_exports.dart';
 import '../enums/priority_state.dart';
 import '../modules/task/task.dart';
+import '../screens/add_screen.dart';
 
 class ListItem extends StatefulWidget {
   const ListItem({super.key, required this.tasks, required this.index});
@@ -91,23 +92,39 @@ class _ListItemState extends State<ListItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AnimatedContainer(
-                  height: (isExpanded) ? 42 : 0,
-                  width: 130,
-                  duration: Duration(milliseconds: (isExpanded) ? 400 : 35),
-                  decoration: BoxDecoration(),
-                  child: ElevatedButton(
-
-                      onPressed: () {}, child: Text('Show\ndescription')),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: (isExpanded) ? 8 : 0,
+                    ),
+                    AnimatedContainer(
+                      height: (isExpanded) ? 42 : 0,
+                      width: 130,
+                      duration: Duration(milliseconds: (isExpanded) ? 400 : 35),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey.shade200,
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            'Show\ndescription',
+                            style: TextStyle(color: Colors.black),
+                          )),
+                    ),
+                  ],
                 ),
-               AnimatedContainer(
+                AnimatedContainer(
                   height: (isExpanded) ? 30 : 0,
                   duration: Duration(
                     milliseconds: (isExpanded) ? 900 : 35,
                   ),
                   child: IconButton(
                     icon: Icon(Icons.edit, size: (isExpanded) ? 25 : 0),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => const AddTaskScreen()));
+
+                    },
                   ),
                 ),
               ],
