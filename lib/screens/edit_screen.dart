@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/enums/priority_state.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../modules/task/task.dart';
@@ -87,15 +86,13 @@ class EditScreen extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           var newTask = task.copyWith(
-                            title:
-                                (state.title != '') ? state.title : task.title,
-                            description: (state.description != '')
-                                ? state.description
-                                : task.description,
-                            priority: (state.priority != PriorityState.none)
-                                ? state.priority
-                                : task.priority,
-                          );
+                              title: (state.title != '')
+                                  ? state.title
+                                  : task.title,
+                              description: (state.description != '')
+                                  ? state.description
+                                  : task.description,
+                              priority: state.priority);
                           context
                               .read<TaskBloc>()
                               .add(EditTask(task1: task, task2: newTask));
