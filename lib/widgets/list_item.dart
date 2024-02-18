@@ -4,7 +4,6 @@ import 'package:to_do/widgets/star_check_box.dart';
 import '../blocs/bloc_exports.dart';
 import '../enums/priority_state.dart';
 import '../modules/task/task.dart';
-import '../screens/add_screen.dart';
 import '../screens/edit_screen.dart';
 
 class ListItem extends StatefulWidget {
@@ -37,7 +36,7 @@ class _ListItemState extends State<ListItem> {
       ),
       child: AnimatedContainer(
         height: (isExpanded) ? 115 : 55,
-        duration: Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 250),
         child: Column(
           children: [
             Row(
@@ -55,8 +54,8 @@ class _ListItemState extends State<ListItem> {
                           });
                         },
                         icon: (isExpanded)
-                            ? Icon(Icons.keyboard_arrow_up)
-                            : Icon(Icons.keyboard_arrow_down)),
+                            ? const Icon(Icons.keyboard_arrow_up)
+                            : const Icon(Icons.keyboard_arrow_down)),
                     const SizedBox(
                       width: 8,
                     ),
