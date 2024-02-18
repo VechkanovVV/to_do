@@ -5,6 +5,7 @@ import '../blocs/bloc_exports.dart';
 import '../enums/priority_state.dart';
 import '../modules/task/task.dart';
 import '../screens/add_screen.dart';
+import '../screens/edit_screen.dart';
 
 class ListItem extends StatefulWidget {
   const ListItem({super.key, required this.tasks, required this.index});
@@ -106,12 +107,13 @@ class _ListItemState extends State<ListItem> {
                             backgroundColor: Colors.grey.shade200,
                           ),
                           onPressed: () {
-                             showDialog<void>(
+                            showDialog<void>(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   title: const Text('Task\'s description'),
-                                  content:  Text(widget.tasks[widget.index].description),
+                                  content: Text(
+                                      widget.tasks[widget.index].description),
                                   actions: <Widget>[
                                     ElevatedButton(
                                       child: const Text('Ok'),
@@ -139,8 +141,11 @@ class _ListItemState extends State<ListItem> {
                   child: IconButton(
                     icon: Icon(Icons.edit, size: (isExpanded) ? 25 : 0),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const AddTaskScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditScreen(
+                                  task: widget.tasks[widget.index])));
                     },
                   ),
                 ),
@@ -152,4 +157,3 @@ class _ListItemState extends State<ListItem> {
     );
   }
 }
-
