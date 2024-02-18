@@ -78,3 +78,9 @@ class DonePriority extends TaskEvent {
 class SetTasks extends TaskEvent {
   const SetTasks();
 }
+
+class EditTask extends TaskEvent {
+  final Task task1;
+  final Task task2;
+  const EditTask({required this.task1, required this.task2});
+}

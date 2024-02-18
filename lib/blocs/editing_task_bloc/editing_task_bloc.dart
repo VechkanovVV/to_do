@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:bloc/bloc.dart';
+import 'package:to_do/blocs/bloc_exports.dart';
 import 'package:to_do/enums/priority_state.dart';
 
 part 'editing_task_bloc.freezed.dart';
@@ -9,7 +10,8 @@ part 'editing_task_event.dart';
 part 'editing_task_state.dart';
 
 class EditingTaskBloc extends Bloc<EditingTaskEvent, EditingTaskState> {
-  EditingTaskBloc() : super(const EditingTaskState()) {
+  EditingTaskBloc({PriorityState? priority})
+      : super(EditingTaskState(priority: priority ?? PriorityState.none)) {
     on<SetHighPriorityEvent>(_onHighPriority);
     on<SetMediumPriorityEvent>(_onMediumPriority);
     on<SetLowPriorityEvent>(_onLowPriority);

@@ -9,7 +9,6 @@ class Task with _$Task {
     required String title,
     @Default('') String description,
     @Default(false) bool isDone,
-    @Default(false) bool isDeleted,
     @Default(false) bool isFavourite,
     @Default(PriorityState.none) PriorityState priority,
     @Default(true) bool isVisible,

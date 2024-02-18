@@ -23,7 +23,6 @@ mixin _$Task {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get isDone => throw _privateConstructorUsedError;
-  bool get isDeleted => throw _privateConstructorUsedError;
   bool get isFavourite => throw _privateConstructorUsedError;
   PriorityState get priority => throw _privateConstructorUsedError;
   bool get isVisible => throw _privateConstructorUsedError;
@@ -42,7 +41,6 @@ abstract class $TaskCopyWith<$Res> {
       {String title,
       String description,
       bool isDone,
-      bool isDeleted,
       bool isFavourite,
       PriorityState priority,
       bool isVisible});
@@ -64,7 +62,6 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
     Object? title = null,
     Object? description = null,
     Object? isDone = null,
-    Object? isDeleted = null,
     Object? isFavourite = null,
     Object? priority = null,
     Object? isVisible = null,
@@ -81,10 +78,6 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool,
       isFavourite: null == isFavourite
           ? _value.isFavourite
@@ -113,7 +106,6 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
       {String title,
       String description,
       bool isDone,
-      bool isDeleted,
       bool isFavourite,
       PriorityState priority,
       bool isVisible});
@@ -132,7 +124,6 @@ class __$$TaskImplCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? isDone = null,
-    Object? isDeleted = null,
     Object? isFavourite = null,
     Object? priority = null,
     Object? isVisible = null,
@@ -149,10 +140,6 @@ class __$$TaskImplCopyWithImpl<$Res>
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
               as bool,
       isFavourite: null == isFavourite
           ? _value.isFavourite
@@ -177,7 +164,6 @@ class _$TaskImpl implements _Task {
       {required this.title,
       this.description = '',
       this.isDone = false,
-      this.isDeleted = false,
       this.isFavourite = false,
       this.priority = PriorityState.none,
       this.isVisible = true});
@@ -195,9 +181,6 @@ class _$TaskImpl implements _Task {
   final bool isDone;
   @override
   @JsonKey()
-  final bool isDeleted;
-  @override
-  @JsonKey()
   final bool isFavourite;
   @override
   @JsonKey()
@@ -208,7 +191,7 @@ class _$TaskImpl implements _Task {
 
   @override
   String toString() {
-    return 'Task(title: $title, description: $description, isDone: $isDone, isDeleted: $isDeleted, isFavourite: $isFavourite, priority: $priority, isVisible: $isVisible)';
+    return 'Task(title: $title, description: $description, isDone: $isDone, isFavourite: $isFavourite, priority: $priority, isVisible: $isVisible)';
   }
 
   @override
@@ -220,8 +203,6 @@ class _$TaskImpl implements _Task {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.isDone, isDone) || other.isDone == isDone) &&
-            (identical(other.isDeleted, isDeleted) ||
-                other.isDeleted == isDeleted) &&
             (identical(other.isFavourite, isFavourite) ||
                 other.isFavourite == isFavourite) &&
             (identical(other.priority, priority) ||
@@ -233,7 +214,7 @@ class _$TaskImpl implements _Task {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, title, description, isDone,
-      isDeleted, isFavourite, priority, isVisible);
+      isFavourite, priority, isVisible);
 
   @JsonKey(ignore: true)
   @override
@@ -254,7 +235,6 @@ abstract class _Task implements Task {
       {required final String title,
       final String description,
       final bool isDone,
-      final bool isDeleted,
       final bool isFavourite,
       final PriorityState priority,
       final bool isVisible}) = _$TaskImpl;
@@ -267,8 +247,6 @@ abstract class _Task implements Task {
   String get description;
   @override
   bool get isDone;
-  @override
-  bool get isDeleted;
   @override
   bool get isFavourite;
   @override

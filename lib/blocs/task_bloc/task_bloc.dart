@@ -25,6 +25,18 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<FavouritePriority>(_onFavouritePriority);
     on<DonePriority>(_onDonePriority);
     on<SetTasks>(_onSetTasks);
+    on<EditTask>(_onEditTask);
+  }
+
+  Future<void> _onEditTask(EditTask event, Emitter<TaskState> emit) async {
+    final state = this.state;
+    final task1 = event.task1;
+    final task2 = event.task2;
+    final int index = state.tasks.indexOf(task1);
+    List<Task> tasks = List.from(state.tasks)..remove(task1);
+    tasks.insert(index, task2);
+    emit(TaskState(tasks: tasks));
+    await db.updateTask(task2);
   }
 
   Future<void> _onSetTasks(SetTasks event, Emitter<TaskState> emit) async {

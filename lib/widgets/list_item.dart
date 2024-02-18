@@ -1,85 +1,166 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/widgets/star_check_box.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../enums/priority_state.dart';
 import '../modules/task/task.dart';
+import '../screens/edit_screen.dart';
 
-class ListItem extends StatelessWidget {
+class ListItem extends StatefulWidget {
   const ListItem({super.key, required this.tasks, required this.index});
   final List<Task> tasks;
   final int index;
 
   @override
+  State<StatefulWidget> createState() => _ListItemState();
+}
+
+class _ListItemState extends State<ListItem> {
+  var isExpanded = false;
+  @override
   Widget build(BuildContext context) {
-    var currentTask = tasks[index];
-    return Container(
-      height: 65,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          width: 1.5,
-          color: Colors.purple,
+    var currentTask = widget.tasks[widget.index];
+    return Dismissible(
+      onDismissed: (_) {
+        context
+            .read<TaskBloc>()
+            .add(DeleteTask(task: widget.tasks[widget.index]));
+      },
+      key: ValueKey(widget.tasks[widget.index].title),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          side: BorderSide(
+              color: (widget.tasks[widget.index].priority == PriorityState.high)
+                  ? Colors.red
+                  : (widget.tasks[widget.index].priority == PriorityState.low)
+                      ? Colors.green
+                      : (widget.tasks[widget.index].priority ==
+                              PriorityState.medium)
+                          ? Colors.yellow
+                          : Colors.black,
+              width: 3.0),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+        child: AnimatedContainer(
+          height: (isExpanded) ? 115 : 55,
+          duration: const Duration(milliseconds: 250),
+          child: Column(
             children: [
-              const SizedBox(
-                width: 3,
-              ),
-              GestureDetector(
-                child: const Icon(
-                  Icons.close,
-                  size: 30,
-                ),
-                onTap: () {
-                  context.read<TaskBloc>().add(DeleteTask(task: tasks[index]));
-                },
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              SizedBox(
-                width: 150,
-                child: Text(
-                  currentTask.title,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 27,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          },
+                          icon: (isExpanded)
+                              ? const Icon(Icons.keyboard_arrow_up)
+                              : const Icon(Icons.keyboard_arrow_down)),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      SizedBox(
+                        width: 150,
+                        child: Text(
+                          currentTask.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 27,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                  Row(children: [
+                    StarCheckBox(
+                      task: widget.tasks[widget.index],
+                    ),
+                    Checkbox(
+                      value: currentTask.isDone,
+                      onChanged: (value) {
+                        context
+                            .read<TaskBloc>()
+                            .add(UpdateTask(task: widget.tasks[widget.index]));
+                      },
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                  ]),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: (isExpanded) ? 8 : 0,
+                      ),
+                      AnimatedContainer(
+                        height: (isExpanded) ? 42 : 0,
+                        width: 130,
+                        duration:
+                            Duration(milliseconds: (isExpanded) ? 400 : 35),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey.shade200,
+                            ),
+                            onPressed: () {
+                              showDialog<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Task\'s description'),
+                                    content: Text(
+                                        widget.tasks[widget.index].description),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Ok'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: const Text(
+                              'Show\ndescription',
+                              style: TextStyle(color: Colors.black),
+                            )),
+                      ),
+                    ],
+                  ),
+                  AnimatedContainer(
+                    height: (isExpanded) ? 30 : 0,
+                    duration: Duration(
+                      milliseconds: (isExpanded) ? 900 : 35,
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.edit, size: (isExpanded) ? 25 : 0),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditScreen(
+                                    task: widget.tasks[widget.index])));
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          Row(children: [
-            StarCheckBox(
-              task: tasks[index],
-            ),
-            Checkbox(
-              value: currentTask.isDone,
-              onChanged: (value) {
-                context.read<TaskBloc>().add(UpdateTask(task: tasks[index]));
-              },
-            ),
-            const SizedBox(
-              width: 4,
-            ),
-            Container(
-              width: 8,
-              color: (tasks[index].priority == PriorityState.high)
-                  ? Colors.red
-                  : (tasks[index].priority == PriorityState.low)
-                      ? Colors.green
-                      : (tasks[index].priority == PriorityState.medium)
-                          ? Colors.yellow
-                          : Colors.white,
-            ),
-          ]),
-        ],
+        ),
       ),
     );
   }
