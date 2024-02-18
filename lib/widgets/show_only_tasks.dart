@@ -22,6 +22,7 @@ class ShowOnlyTask extends StatelessWidget {
         builder: (BuildContext context, state) {
           return Container(
             width: 140,
+            height: 45,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.purpleAccent,
